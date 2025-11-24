@@ -6,14 +6,14 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class Product
+public class SignUp
 {
 
     @NotBlank
-    private String name;
+    private String Password;
 
     @NotBlank
     @Email
     @Size(max = 60)
-    private String email;
+    private String Email;
 }
