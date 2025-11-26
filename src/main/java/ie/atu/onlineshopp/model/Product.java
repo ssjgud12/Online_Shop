@@ -30,4 +30,14 @@ public class Product
 
     @NotBlank
     private String manufacturer;
+
+    private String ProductName;
+    private double Price;
+
+    public Product(String ProductName, double Price)
+    {
+        this.ProductName = ProductName;
+        this.Price = Price;
+    }
+
 }
