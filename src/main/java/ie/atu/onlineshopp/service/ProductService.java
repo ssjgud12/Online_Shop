@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
+
 @Service
 public class ProductService
 {
@@ -66,6 +67,25 @@ public class ProductService
 
         return Optional.empty();
     }
+
+
+    public boolean delete(int id)
+    {
+        for (int i = 0; i < store.size(); i++)
+        {
+            Product p = store.get(i);
+
+
+            if (p.getId() == id)
+            {
+                store.remove(i);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
 
 
 }
