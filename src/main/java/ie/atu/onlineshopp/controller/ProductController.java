@@ -13,18 +13,19 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/Products")
+@RequestMapping("Products")
 public class ProductController
 {
     List<Product> myList = new ArrayList<>();
+//Bean created by Spring
 
   private final ProductService productService;
-
+//Used to access product logic
   public ProductController (ProductService productService)
   {
       this.productService = productService;
   }
-
+//Returns all products in the store
   @GetMapping
     public ResponseEntity<List<Product>> getAll()
   {
@@ -32,8 +33,8 @@ public class ProductController
   }
 
 
-
-    @GetMapping("/{id}")
+  //If a product with the Given id exists return it, If not return 404 Not found
+    @GetMapping("")
     public ResponseEntity<Product> getOne(@PathVariable int id)
     {
 
@@ -47,32 +48,9 @@ public class ProductController
             return ResponseEntity.notFound().build();
         }
     }
+    // This endpoint creates a new product evertthing except price and quantity are dummy values for now
 
-    @GetMapping("/add")
-    public ResponseEntity<Product> addProduct
-            (@RequestParam double price, @RequestParam int quantity)
-    {
-        Product p = new Product();
-
-        p.setName(" Laptop");
-        p.setCategory("Electronics");
-        p.setDescription(" gaming laptop");
-        p.setManufacturer("Dell");
-        p.setImage("laptop.png");
-
-        p.setPrice(price);
-        p.setQuantity(quantity);
-
-
-
-        Product created = productService.create(p);
-
-        return ResponseEntity.ok(created);
-    }
-
-
-
-    @PostMapping
+    @PostMapping("Add")
     public ResponseEntity<Product> create(@Valid @RequestBody Product p)
     {
         Product newProduct = productService.create(p);
