@@ -72,7 +72,7 @@ public class ProductController
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{Deleteid}")
+    @DeleteMapping("/Delete{id}")
     public ResponseEntity<Void> delete(@PathVariable int id)
     {
         boolean deleted = productService.delete(id);
