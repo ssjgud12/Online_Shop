@@ -2,12 +2,11 @@ package ie.atu.onlineshopp.controller;
 
 import ie.atu.onlineshopp.model.Product;
 import ie.atu.onlineshopp.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,5 +41,12 @@ public class ProductController
             return ResponseEntity.notFound().build();
         }
     }
+    @PostMapping
+    public ResponseEntity<Product> create(@Valid @RequestBody Product p)
+    {
+        Product newProduct = productService.create(p);
+        return ResponseEntity.created(URI.create("/api/Products/" + newProduct.getId())).body(newProduct);
+    }
+
 
 }
