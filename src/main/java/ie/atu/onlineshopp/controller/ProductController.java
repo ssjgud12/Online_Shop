@@ -1,42 +1,78 @@
 package ie.atu.onlineshopp.controller;
 
 import ie.atu.onlineshopp.model.Product;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ie.atu.onlineshopp.service.ProductService;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@RequestMapping("product")
 @RestController
-
+@RequestMapping("/Products")
 public class ProductController
 {
-
     List<Product> myList = new ArrayList<>();
+//Bean created by Spring
 
-    @GetMapping("/hello")
+  private final ProductService productService;
+//Used to access product logic
+  public ProductController (ProductService productService)
+  {
+      this.productService = productService;
+  }
+//Returns all products in the store
+  @GetMapping
+    public ResponseEntity<List<Product>> getAll()
+  {
+      return ResponseEntity.ok(productService.findAll());
+  }
 
-    public String hello()
+
+  //If a product with the Given id exists return it, If not return 404 Not found
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getOne(@PathVariable int id)
     {
-        return "Good Morning World";
+
+        Optional<Product> maybe = productService.findById(id);
+        if(maybe.isPresent())
+        {
+            return ResponseEntity.ok(maybe.get());
+        }
+        else
+        {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    // This endpoint creates a new product evertthing except price and quantity are dummy values for now
+
+    @GetMapping("display")
+    public ResponseEntity<List<Product>> displayProducts()
+    {
+        return ResponseEntity.ok(productService.findAll());
     }
 
-    @GetMapping("/getproduct")
-    public Product getProduct()
+    @PostMapping("Add")
+    public ResponseEntity<Product> create(@Valid @RequestBody Product p)
     {
-        Product myProduct = new Product("TV",677);
-        return myProduct;
+        Product newProduct = productService.create(p);
+        return ResponseEntity.created(URI.create("/api/Products/" + newProduct.getId())).body(newProduct);
     }
 
-    @GetMapping("/addProduct")
-    public Product addProduct(@RequestBody Product myproduct)
+    @PutMapping("/Update{id}")
+    public ResponseEntity<Product> update(@PathVariable int id, @RequestBody Product product)
     {
-        myList.add(myproduct);
-        return myproduct;
+
+        Optional<Product> updated = productService.update(id,product);
+        return updated.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
+
+
 
 
 }
