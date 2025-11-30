@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("Products")
+@RequestMapping("/Products")
 public class ProductController
 {
     List<Product> myList = new ArrayList<>();
@@ -34,7 +34,7 @@ public class ProductController
 
 
   //If a product with the Given id exists return it, If not return 404 Not found
-    @GetMapping("")
+    @GetMapping("/{id}")
     public ResponseEntity<Product> getOne(@PathVariable int id)
     {
 
@@ -50,12 +50,29 @@ public class ProductController
     }
     // This endpoint creates a new product evertthing except price and quantity are dummy values for now
 
+    @GetMapping("display")
+    public ResponseEntity<List<Product>> displayProducts()
+    {
+        return ResponseEntity.ok(productService.findAll());
+    }
+
     @PostMapping("Add")
     public ResponseEntity<Product> create(@Valid @RequestBody Product p)
     {
         Product newProduct = productService.create(p);
         return ResponseEntity.created(URI.create("/api/Products/" + newProduct.getId())).body(newProduct);
     }
+
+    @PutMapping("/Update{id}")
+    public ResponseEntity<Product> update(@PathVariable int id, @RequestBody Product product)
+    {
+
+        Optional<Product> updated = productService.update(id,product);
+        return updated.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
 
 
 }

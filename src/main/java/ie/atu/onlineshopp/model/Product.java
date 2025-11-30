@@ -21,6 +21,8 @@ public class Product
     private int id;
     private String manufacturer;
 
+
+
     public int getId()
     {
         return id;

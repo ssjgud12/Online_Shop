@@ -1,12 +1,15 @@
 package ie.atu.onlineshopp.service;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import ie.atu.onlineshopp.model.Product;
+import lombok.Builder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+
 
 @Service
 public class ProductService
@@ -39,6 +42,30 @@ public class ProductService
         return p;
     }
 
+    public Optional<Product> update(int id, Product updatedProduct)
+    {
+        for (int i = 0; i < store.size(); i++)
+        {
+            Product existing = store.get(i);
+            if (existing.getId() == id)
+            {
+                existing.setName(updatedProduct.getName());
+                existing.setDescription(updatedProduct.getDescription());
+                existing.setPrice(updatedProduct.getPrice());
+                existing.setQuantity(updatedProduct.getQuantity());
+                existing.setCategory(updatedProduct.getCategory());
+                existing.setImage(updatedProduct.getImage());
+                existing.setManufacturer(updatedProduct.getManufacturer());
+
+
+                store.set(i, existing);
+
+                return Optional.of(existing);
+            }
+        }
+
+        return Optional.empty();
+    }
 
 
 }
