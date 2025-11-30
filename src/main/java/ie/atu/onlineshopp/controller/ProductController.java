@@ -6,7 +6,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +16,9 @@ import java.util.Optional;
 @RequestMapping("api/Products")
 public class ProductController
 {
-  private final ProductService productService;/
+    List<Product> myList = new ArrayList<>();
+
+  private final ProductService productService;
 
   public ProductController (ProductService productService)
   {
@@ -26,6 +30,8 @@ public class ProductController
   {
       return ResponseEntity.ok(productService.findAll());
   }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getOne(@PathVariable int id)
@@ -41,6 +47,31 @@ public class ProductController
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/add")
+    public ResponseEntity<Product> addProduct
+            (@RequestParam double price, @RequestParam int quantity)
+    {
+        Product p = new Product();
+
+        p.setName(" Laptop");
+        p.setCategory("Electronics");
+        p.setDescription(" gaming laptop");
+        p.setManufacturer("Dell");
+        p.setImage("laptop.png");
+
+        p.setPrice(price);
+        p.setQuantity(quantity);
+
+
+
+        Product created = productService.create(p);
+
+        return ResponseEntity.ok(created);
+    }
+
+
+
     @PostMapping
     public ResponseEntity<Product> create(@Valid @RequestBody Product p)
     {
