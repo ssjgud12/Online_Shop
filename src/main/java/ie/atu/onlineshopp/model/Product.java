@@ -21,13 +21,13 @@ public class Product
     private int id;
     private String manufacturer;
 
-    private String ProductName;
-    private double Price;
-
-    public Product(String ProductName, double Price)
+    public int getId()
     {
-        this.ProductName = ProductName;
-        this.Price = Price;
+        return id;
+    }
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
 }

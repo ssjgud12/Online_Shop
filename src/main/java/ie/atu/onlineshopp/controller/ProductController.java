@@ -1,41 +1,51 @@
 package ie.atu.onlineshopp.controller;
 
 import ie.atu.onlineshopp.model.Product;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ie.atu.onlineshopp.service.ProductService;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
-@RequestMapping("product")
 @RestController
-
+@RequestMapping("api/Products")
 public class ProductController
 {
+  private final ProductService productService;
 
-    List<Product> myList = new ArrayList<>();
+  public ProductController (ProductService productService)
+  {
+      this.productService = productService;
+  }
 
-    @GetMapping("/hello")
+  @GetMapping
+    public ResponseEntity<List<Product>> getAll()
+  {
+      return ResponseEntity.ok(productService.findAll());
+  }
 
-    public String hello()
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getOne(@PathVariable int id)
     {
-        return "Good Morning World";
+
+        Optional<Product> maybe = productService.findById(id);
+        if(maybe.isPresent())
+        {
+            return ResponseEntity.ok(maybe.get());
+        }
+        else
+        {
+            return ResponseEntity.notFound().build();
+        }
     }
-
-    @GetMapping("/getproduct")
-    public Product getProduct()
+    @PostMapping
+    public ResponseEntity<Product> create(@Valid @RequestBody Product p)
     {
-        Product myProduct = new Product("TV",677);
-        return myProduct;
-    }
-
-    @GetMapping("/addProduct")
-    public Product addProduct(@RequestBody Product myproduct)
-    {
-        myList.add(myproduct);
-        return myproduct;
+        Product newProduct = productService.create(p);
+        return ResponseEntity.created(URI.create("/api/Products/" + newProduct.getId())).body(newProduct);
     }
 
 
