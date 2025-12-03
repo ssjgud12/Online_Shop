@@ -26,7 +26,7 @@ public class ProductController
       this.productService = productService;
   }
 //Returns all products in the store
-  @GetMapping
+  @GetMapping("/display")
     public ResponseEntity<List<Product>> getAll()
   {
       return ResponseEntity.ok(productService.findAll());
@@ -49,12 +49,6 @@ public class ProductController
         }
     }
     // This endpoint creates a new product evertthing except price and quantity are dummy values for now
-
-    @GetMapping("display")
-    public ResponseEntity<List<Product>> displayProducts()
-    {
-        return ResponseEntity.ok(productService.findAll());
-    }
 
     @PostMapping("Add")
     public ResponseEntity<Product> create(@Valid @RequestBody Product p)
