@@ -12,13 +12,21 @@ import lombok.NoArgsConstructor;
 @Data
 public class Product
 {
+    @NotBlank
     private String name;
+    @NotBlank
     private double price;
+    @NotBlank
     private int quantity;
+    @NotBlank
     private String category;
+    @NotBlank
     private String description;
+    @NotBlank
     private String image;
+    @NotBlank
     private int id;
+    @NotBlank
     private String manufacturer;
 
 

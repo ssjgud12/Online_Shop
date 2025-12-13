@@ -1,10 +1,16 @@
 package ie.atu.onlineshopp.controller.GlobalExceptionDetails;
 
+import jakarta.validation.UnexpectedTypeException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
 public class ErrorHandling
 {
-    public String ShowErrorDetails()
-    {
-        return "There is an issue";
-    }
+@ExceptionHandler(UnexpectedTypeException.class)
+        public String ShowErrorDetails()
+{
+    return("UnexpectedTypeException");
+}
 
 }
