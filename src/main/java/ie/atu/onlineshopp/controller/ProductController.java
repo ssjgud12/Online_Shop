@@ -2,6 +2,7 @@ package ie.atu.onlineshopp.controller;
 
 import ie.atu.onlineshopp.model.Product;
 import ie.atu.onlineshopp.service.ProductService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/Products")
+@Tag(name = "Sign Up Controller", description = "APIs for managing user sign ups")
 public class ProductController
 {
     List<Product> myList = new ArrayList<>();
