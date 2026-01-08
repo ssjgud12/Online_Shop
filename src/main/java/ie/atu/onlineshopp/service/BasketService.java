@@ -2,18 +2,13 @@ package ie.atu.onlineshopp.service;
 
 import ie.atu.onlineshopp.model.Basket;
 import ie.atu.onlineshopp.model.BasketItemRequest;
-import ie.atu.onlineshopp.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 
 @Service
 public class BasketService
 {
-
     private final Basket basket;
-
 
     @Autowired
     public BasketService(Basket basket)
@@ -21,7 +16,6 @@ public class BasketService
         this.basket = basket;
     }
 
-    //View Entire Basket
     public Basket getBasket()
     {
         return basket;

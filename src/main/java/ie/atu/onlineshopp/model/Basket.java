@@ -8,7 +8,8 @@ import java.util.List;
 
 @Component
 @Scope("singleton")
-public class Basket {
+public class Basket
+{
     private List<BasketItem> items;
     private double totalPrice;
 
@@ -19,7 +20,8 @@ public class Basket {
     }
 
 
-    public static class BasketItem {
+    public static class BasketItem
+    {
         private String name;
         private double price;
         private int quantity;
@@ -51,18 +53,41 @@ public class Basket {
     public void addItem(String name, double price, int quantity)
     {
 
+        if (items == null)
+        {
+            items = new ArrayList<>();
+        }
+
+        for (BasketItem item : items)
+        {
+            if (item.getName() != null && item.getName().equalsIgnoreCase(name))
+            {
+                item.setQuantity(item.getQuantity() + quantity);
+                calculateTotal();
+                return;
+            }
+        }
+
+        BasketItem newItem = new BasketItem(name, price, quantity);
+        items.add(newItem);
+        calculateTotal();
     }
+
+
+
 
     public void addItem(String name, double price) {
         addItem(name, price, 1);
     }
 
-    public void removeItem(String name) {
+    public void removeItem(String name)
+    {
         items.removeIf(item -> item.getName().equalsIgnoreCase(name));
         calculateTotal();
     }
 
-    public void clear() {
+    public void clear()
+    {
         items.clear();
         totalPrice = 0.0;
     }
@@ -83,7 +108,8 @@ public class Basket {
         return new ArrayList<>(items);
     }
 
-    private void calculateTotal() {
+    private void calculateTotal()
+    {
         totalPrice = items.stream()
                 .mapToDouble(BasketItem::getTotalPrice)
                 .sum();

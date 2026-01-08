@@ -18,6 +18,7 @@ import java.util.Map;
 public class BasketController
 {
     private final BasketService basketService;
+    private Basket basket;
 
 
 
@@ -38,10 +39,15 @@ public class BasketController
 
 
     @PostMapping("/add")
-    @Operation(summary = "Add Items to basket", description = "Add Products to your Basket")
-    public ResponseEntity<Basket> addItem(@Valid @RequestBody BasketItemRequest request)
-    {
+    public ResponseEntity<Basket> addItem(@RequestBody BasketItemRequest request) {
+        System.out.println("=== DEBUG ===");
+        System.out.println("Name: " + request.getName());
+        System.out.println("Price: " + request.getPrice());
+        System.out.println("Quantity: " + request.getQuantity());
+
         Basket basket = basketService.addItem(request);
+        System.out.println("Items in basket: " + basket.getItems().size());
+
         return ResponseEntity.ok(basket);
     }
 
@@ -53,5 +59,29 @@ public class BasketController
         return ResponseEntity.ok(basket);
     }
 
+    @GetMapping("/summary")
+    @Operation(summary = "Get basket summary", description = "Returns basket summary including total price and item count")
+    public ResponseEntity<?> getBasketSummary()
+    {
+        Basket basket = basketService.getBasket();
+
+
+        var summary = new Object()
+        {
+            public final double totalPrice = basket.getTotalPrice();
+            public final int totalItems = basket.getTotalItemCount();
+            public final int uniqueItems = basket.getUniqueItemCount();
+        };
+
+        return ResponseEntity.ok(summary);
+    }
+
+    @GetMapping("/items")
+    @Operation(summary = "Get basket items", description = "Returns all items in the basket")
+    public ResponseEntity<?> getBasketItems()
+    {
+        Basket basket = basketService.getBasket();
+        return ResponseEntity.ok(basket.getItems());
+    }
 
 }
