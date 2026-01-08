@@ -7,17 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Scope("singleton") // Or @SessionScope for user-specific baskets
+@Scope("singleton")
 public class Basket {
     private List<BasketItem> items;
     private double totalPrice;
 
-    public Basket() {
+    public Basket()
+    {
         this.items = new ArrayList<>();
         this.totalPrice = 0.0;
     }
 
-    // Make BasketItem a public static class so it can be serialized in API responses
+
     public static class BasketItem {
         private String name;
         private double price;
@@ -31,7 +32,7 @@ public class Basket {
             this.quantity = quantity;
         }
 
-        // Getters and Setters (required for JSON serialization)
+
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }
 
@@ -46,9 +47,10 @@ public class Basket {
         }
     }
 
-    // Rest of your methods remain the same...
-    public void addItem(String name, double price, int quantity) {
-        // ... implementation ...
+
+    public void addItem(String name, double price, int quantity)
+    {
+
     }
 
     public void addItem(String name, double price) {
