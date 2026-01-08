@@ -1,6 +1,7 @@
 package ie.atu.onlineshopp.model;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,9 +15,9 @@ public class Product
 {
     @NotBlank
     private String name;
-    @NotBlank
+    @NotNull
     private double price;
-    @NotBlank
+    @NotNull
     private int quantity;
     @NotBlank
     private String category;
@@ -24,7 +25,7 @@ public class Product
     private String description;
     @NotBlank
     private String image;
-    @NotBlank
+    @NotNull
     private int id;
     @NotBlank
     private String manufacturer;

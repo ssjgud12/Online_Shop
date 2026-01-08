@@ -1,10 +1,10 @@
 package ie.atu.onlineshopp.service;
 
+
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import ie.atu.onlineshopp.model.Product;
 import lombok.Builder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +33,7 @@ public class ProductService
         }
         return Optional.empty();
     }
+
 
     private AtomicInteger counter = new AtomicInteger(1);
 
