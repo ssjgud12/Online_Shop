@@ -16,8 +16,14 @@ public class BasketService
 
 
     @Autowired
-    public BasketService(Basket basket) {
+    public BasketService(Basket basket)
+    {
         this.basket = basket;
+    }
+
+    public Basket getBasket()
+    {
+        return basket;
     }
 
     public Basket addItem(BasketItemRequest request)
