@@ -1,3 +1,4 @@
+/*
 package ie.atu.onlineshopp.model;
 
 
@@ -22,3 +23,5 @@ public class Person
     private String position;
     private String department;
 }
+
+ */

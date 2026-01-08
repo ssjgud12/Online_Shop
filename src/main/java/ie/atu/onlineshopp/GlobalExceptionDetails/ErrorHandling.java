@@ -1,4 +1,4 @@
-package ie.atu.onlineshopp.controller.GlobalExceptionDetails;
+package ie.atu.onlineshopp.GlobalExceptionDetails;
 
 import jakarta.validation.UnexpectedTypeException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
