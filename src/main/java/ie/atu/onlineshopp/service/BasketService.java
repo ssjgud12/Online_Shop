@@ -21,6 +21,7 @@ public class BasketService
         this.basket = basket;
     }
 
+    //View Entire Basket
     public Basket getBasket()
     {
         return basket;
@@ -29,6 +30,12 @@ public class BasketService
     public Basket addItem(BasketItemRequest request)
     {
         basket.addItem(request.getName(), request.getPrice(), request.getQuantity());
+        return basket;
+    }
+
+    public Basket clearBasket()
+    {
+        basket.clear();
         return basket;
     }
 }
