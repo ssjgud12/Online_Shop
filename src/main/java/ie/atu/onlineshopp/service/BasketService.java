@@ -1,30 +1,28 @@
 package ie.atu.onlineshopp.service;
 
 import ie.atu.onlineshopp.model.Basket;
+import ie.atu.onlineshopp.model.BasketItemRequest;
 import ie.atu.onlineshopp.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
+
+@Service
 public class BasketService
 {
 
-    private final List<Basket> store = new ArrayList<>();
+    private final Basket basket;
 
-    public List<Basket> findAll()
-    {
-        return new ArrayList<>(store);
+
+    @Autowired
+    public BasketService(Basket basket) {
+        this.basket = basket;
     }
 
-    private AtomicInteger counter = new AtomicInteger(1);
-
-    public Product create(Basket b)
+    public Basket addItem(BasketItemRequest request)
     {
-        b.setBasket(counter.getAndIncrement());
-        store.add(b);
-        return b;
+        basket.addItem(request.getName(), request.getPrice(), request.getQuantity());
+        return basket;
     }
-
-
 }
