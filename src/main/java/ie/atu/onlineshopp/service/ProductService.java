@@ -22,17 +22,6 @@ public class ProductService
         return new ArrayList<>(store);
     }
 
-    public Optional<Product> findById(int id)
-    {
-        for (Product product : store)
-        {
-            if (product.getId() == id)
-            {
-                return Optional.of(product);
-            }
-        }
-        return Optional.empty();
-    }
 
     private AtomicInteger counter = new AtomicInteger(1);
 
