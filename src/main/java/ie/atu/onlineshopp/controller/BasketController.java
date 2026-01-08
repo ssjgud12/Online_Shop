@@ -17,7 +17,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/basket")
 @Tag(name = "Basket Controller", description = "APIs for managing shopping basket")
-public class BasketController {
+public class BasketController
+{
 
     @Autowired
     private Basket basket;
