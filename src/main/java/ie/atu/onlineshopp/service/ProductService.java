@@ -55,6 +55,12 @@ public class ProductService
         return repo.save(existingProduct);
     }
 
+    public void deleteProduct(int id)
+    {
+        Product product = getProductById(id); // Corrected method call
+        repo.delete(product);
+    }
+
 
 
 

@@ -19,7 +19,7 @@ public class ProductController {
     }
 
     // CREATE - POST
-    @PostMapping
+    @PostMapping("{Create}")
     @ResponseStatus(HttpStatus.CREATED)
     public Product create(@Valid @RequestBody Product product)
     {
@@ -27,19 +27,24 @@ public class ProductController {
     }
 
     // READ ALL - GET
-    @GetMapping
+    @GetMapping("{Read}")
     public List<Product> getAllProducts()
     {
         return service.getAllProducts();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{Update}")
     public Product updateProduct(@PathVariable int id, @Valid @RequestBody Product product)
     {
 
         return service.updateProduct(id, product);
     }
 
-
+    @DeleteMapping("/{Delete}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProduct(@PathVariable int id)
+    {
+        service.deleteProduct(id);
+    }
 
 }
