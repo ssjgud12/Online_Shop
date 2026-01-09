@@ -22,6 +22,13 @@ public class ProductService
         this.repo = repo;
     }
 
+    public Product getProductById(int id)
+    {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+    }
+
+
     public Product create(Product p)
     {
         return repo.save(p);
@@ -31,6 +38,24 @@ public class ProductService
     {
         return repo.findAll();
     }
+
+    public Product updateProduct(int id, Product productDetails) {
+
+        Product existingProduct = getProductById(id);
+
+
+        existingProduct.setName(productDetails.getName());
+        existingProduct.setPrice(productDetails.getPrice());
+        existingProduct.setQuantity(productDetails.getQuantity());
+        existingProduct.setCategory(productDetails.getCategory());
+        existingProduct.setDescription(productDetails.getDescription());
+        existingProduct.setImage(productDetails.getImage());
+        existingProduct.setManufacturer(productDetails.getManufacturer());
+
+        return repo.save(existingProduct);
+    }
+
+
 
 
 

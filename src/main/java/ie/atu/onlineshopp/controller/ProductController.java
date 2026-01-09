@@ -28,8 +28,18 @@ public class ProductController {
 
     // READ ALL - GET
     @GetMapping
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts()
+    {
         return service.getAllProducts();
     }
+
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable int id, @Valid @RequestBody Product product)
+    {
+
+        return service.updateProduct(id, product);
+    }
+
+
 
 }
