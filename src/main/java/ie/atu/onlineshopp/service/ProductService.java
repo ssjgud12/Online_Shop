@@ -1,9 +1,8 @@
 package ie.atu.onlineshopp.service;
 
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import ie.atu.onlineshopp.repository.ProductRepository;
 import ie.atu.onlineshopp.model.Product;
-import lombok.Builder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +36,7 @@ public class ProductService
 
     private AtomicInteger counter = new AtomicInteger(1);
 
-    public Product create(Product p)
-    {
-        p.setId(counter.getAndIncrement());
-        store.add(p);
-        return p;
-    }
+
 
     public Optional<Product> update(int id, Product updatedProduct)
     {
@@ -85,6 +79,18 @@ public class ProductService
         }
         return false;
 
+    }
+
+    private final ProductRepository repo;
+
+    public ProductService(ProductRepository repo)
+    {
+        this.repo = repo;
+    }
+
+    public Product create(Product p)
+    {
+        return repo.save(p);
     }
 
 

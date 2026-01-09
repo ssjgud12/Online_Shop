@@ -21,21 +21,21 @@ public class ProductController
     List<Product> myList = new ArrayList<>();
 //Bean created by Spring
 
-  private final ProductService productService;
-//Used to access product logic
-  public ProductController (ProductService productService)
-  {
-      this.productService = productService;
-  }
-//Returns all products in the store
-  @GetMapping("/display")
+    private final ProductService productService;
+    //Used to access product logic
+    public ProductController (ProductService productService)
+    {
+        this.productService = productService;
+    }
+    //Returns all products in the store
+    @GetMapping("/display")
     public ResponseEntity<List<Product>> getAll()
-  {
-      return ResponseEntity.ok(productService.findAll());
-  }
+    {
+        return ResponseEntity.ok(productService.findAll());
+    }
 
 
-  //If a product with the Given id exists return it, If not return 404 Not found
+    //If a product with the Given id exists return it, If not return 404 Not found
     @GetMapping("/{id}")
     public ResponseEntity<Product> getOne(@PathVariable int id)
     {
