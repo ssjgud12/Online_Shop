@@ -1,5 +1,4 @@
 HELP.md
-# Bundled JDK - should never be committed
 oracleJdk-27/
 target/
 .mvn/wrapper/maven-wrapper.jar

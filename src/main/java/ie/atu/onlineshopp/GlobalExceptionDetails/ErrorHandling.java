@@ -1,3 +1,4 @@
+
 package ie.atu.onlineshopp.GlobalExceptionDetails;
 
 import jakarta.validation.UnexpectedTypeException;
