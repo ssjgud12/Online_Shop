@@ -27,20 +27,20 @@ public class ProductController {
     }
 
     // READ ALL - GET
-    @GetMapping("{Read}")
+    @GetMapping
     public List<Product> getAllProducts()
     {
         return service.getAllProducts();
     }
 
-    @PutMapping("/{Update}")
+    @PutMapping("/{id}")
     public Product updateProduct(@PathVariable int id, @Valid @RequestBody Product product)
     {
 
         return service.updateProduct(id, product);
     }
 
-    @DeleteMapping("/{Delete}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProduct(@PathVariable int id)
     {

@@ -20,7 +20,7 @@ public class Product
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY) // Hides ID in Swagger
-    private int id;
+    
     
     private String name;
     
