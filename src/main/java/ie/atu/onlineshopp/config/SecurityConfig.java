@@ -19,6 +19,9 @@ public class SecurityConfig
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+
+             .headers(headers -> headers.frameOptions(frame -> frame.disable()))
+             
             .csrf(csrf -> csrf.disable()) // Disables CSRF so POST requests work
             .authorizeHttpRequests(auth -> auth
                 // Allow anyone to GET products

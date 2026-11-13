@@ -22,6 +22,8 @@ public class Product
     @JsonProperty(access = JsonProperty.Access.READ_ONLY) // Hides ID in Swagger
     
     
+    private int id;
+    
     private String name;
     
     @NotNull
