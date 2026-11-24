@@ -1,5 +1,6 @@
 package ie.atu.onlineshopp.config;
 
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,10 +21,10 @@ public class SecurityConfig
 {
     private final JwtAuthenticationFilter jwtAuthFilter;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter) 
+    public SecurityConfig(@Lazy JwtAuthenticationFilter jwtAuthFilter) 
     {
         this.jwtAuthFilter = jwtAuthFilter;
-    
+    }
     @Bean 
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -49,21 +50,5 @@ public class SecurityConfig
         return http.build();
     }
 
-    // Hardcoded users for testing (Will be replaced with a database in the future)
-    @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("password123")
-                .roles("ADMIN")
-                .build();
-                
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password123")
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, user);
-    }
+   
 }
