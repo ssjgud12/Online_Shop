@@ -21,7 +21,7 @@ public class SecurityConfig
 {
     private final JwtAuthenticationFilter jwtAuthFilter;
 
-    public SecurityConfig(@Lazy JwtAuthenticationFilter jwtAuthFilter) 
+    public SecurityConfig( JwtAuthenticationFilter jwtAuthFilter) 
     {
         this.jwtAuthFilter = jwtAuthFilter;
     }
@@ -48,6 +48,12 @@ public class SecurityConfig
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter before the username/password filter
 
         return http.build();
+    }
+
+    @Bean 
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception 
+    {
+        return config.getAuthenticationManager();
     }
 
    
